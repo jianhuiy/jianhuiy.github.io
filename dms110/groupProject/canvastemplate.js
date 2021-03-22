@@ -1,6 +1,4 @@
 /*
-Group Members: Andy, Lewuga, Terry, and Jianhui
-
 Instructions:
 		1. Create an array for x-coordinate, y-coordinate, x-speed, y-speed for each point.
 		2. In Setup, make for loop to assign random value to each value for each array.
