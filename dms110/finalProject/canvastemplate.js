@@ -41,6 +41,17 @@ var kaguya1X, kaguya1Y;
 var kaguya2X = [];
 var kaguya2Y = [];
 
+//gameEnds variables
+var end = false;
+var	gameOver1 = false;
+var gameOver2 = false;
+var gameOver3 = false;
+var gameOver4 = false;
+var gameOver5 = false;
+var gameOver6 = false;
+var gameOver7 = false;
+var gameOver8 = false;
+
 // other variables
 var x,y,sz,sp;
 var konanSpX = [];
@@ -63,7 +74,6 @@ var tobiTimer = 40;
 var madaraTimer = 35;
 var kaguya1Timer = 30;
 var kaguya2Timer = 25;
-var	gameOver = false;
 
 
 
@@ -80,7 +90,6 @@ function setup() {
 			zetsuX[i] = Math.random()*(cv.width*0.8)+15;
 			zetsuY[i] = Math.random()*(cv.height*0.8)+15;
 		}
-
 
 		for(var i = 0; i<15; i++){
 			painX[i] = Math.random()*(cv.width*0.8)+15;
@@ -101,68 +110,94 @@ function setup() {
 			nagatoSpY[i] = Math.random() * 20 - 10;
 		}
 
-			tobiX = Math.random()*(cv.width*0.8)+15;
-			tobiY = Math.random()*(cv.height*0.8)+15;
+		tobiX = Math.random()*(cv.width*0.8)+15;
+		tobiY = Math.random()*(cv.height*0.8)+15;
 
-			madaraX = Math.random()*(cv.width*0.8)+15;
-			madaraY = Math.random()*(cv.height*0.8)+15;
+		madaraX = Math.random()*(cv.width*0.8)+15;
+		madaraY = Math.random()*(cv.height*0.8)+15;
 
-			kaguya1X = Math.random()*(cv.width*0.8)+15;
-			kaguya1Y = Math.random()*(cv.height*0.8)+15;
+		kaguya1X = Math.random()*(cv.width*0.8)+15;
+		kaguya1Y = Math.random()*(cv.height*0.8)+15;
 
-			for(var i = 0; i<5; i++){
-				kaguya2X[i] = Math.random()*(cv.width*0.8)+15;
-				kaguya2Y[i] = Math.random()*(cv.height*0.8)+15;
-				kaguya2SpX[i] = Math.random() * 20 - 10;
-				kaguya2SpY[i] = Math.random() * 20 - 10;
-			}
+		for(var i = 0; i<5; i++){
+			kaguya2X[i] = Math.random()*(cv.width*0.8)+15;
+			kaguya2Y[i] = Math.random()*(cv.height*0.8)+15;
+			kaguya2SpX[i] = Math.random() * 20 - 10;
+			kaguya2SpY[i] = Math.random() * 20 - 10;
+		}
 }
 
 function draw() {
-		//gameOver = false;
+		bgm1.play();
 		background();
-		 bgm1.play();
-		//musicControl();
 		gameControl();
 		checkBoundary();
-
-		  // if (capture <= 80) {
-		  // 	musicControl();
-		  // }
+		ctx.font = "30px Arial";
+		ctx.fillStyle = "rgb(255,255,255)";
+		ctx.textAlign="right";
+		ctx.fillText("Use W,A,S,D To Move",cv.width-25,50);
 
 		if (level == 1){
-			display1();
-			level1();
+			if (!gameOver1){
+				display1();
+				level1();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 2) {
-			display2();
-			level2();
+			if (!gameOver2){
+				display2();
+				level2();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 3) {
-			display3();
-			level3();
+			if (!gameOver3){
+				display3();
+				level3();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 4) {
-			display4();
-			level4();
+			if (!gameOver4){
+				display4();
+				level4();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 5) {
+			if (!gameOver5){
 				display5();
 				level5();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 6) {
+			if (!gameOver6){
 				display6();
 				level6();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 7) {
+			if (!gameOver7){
 				display7();
 				level7();
+			}else{
+				gameEnds();
+			}
 		}
 
 		if (level == 8) {
@@ -174,28 +209,19 @@ function draw() {
 			 }
 			}
 	}
- // var musicOn = true;
- // function musicControl() {
- // 	if (capture <= 80) {
-	// 	musicOn = true;
-	// 	bgm1.play();
-	// }else{
-	// 	musicOn = false;
-	// 	win.play();
-	// }
- // }
+
 
 function gameControl() {
-	if ("ArrowUp" in keysDown || "w" in keysDown) {
+	if ("w" in keysDown || "W" in keysDown) {
 		y-=sp;
 	}
-	if ("ArrowLeft" in keysDown || "a" in keysDown) {
+	if ("a" in keysDown || "A" in keysDown) {
 		x-=sp;
 	}
-	if ("ArrowDown" in keysDown || "s" in keysDown) {
+	if ("s" in keysDown || "S" in keysDown) {
 		y+=sp;
 	}
-	if ("ArrowRight" in keysDown || "d" in keysDown) {
+	if ("d" in keysDown || "D" in keysDown) {
 		x+=sp;
 	}
 }
@@ -316,14 +342,14 @@ function level1() {
 		}
 
 	 }else{
-			gameOver = true;
-			ctx.font = "50px Arial";
-			ctx.fillStyle = "rgb(255,255,255)";
-			ctx.textAlign="center";
-			ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-			ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+		 gameOver1 = true;
+		 end = false;
+		 if (timer1 == 0) {
+			 lose.play();
+		 }
 	 }
 }
+
 
 function level2() {
 	if(timer2>0){
@@ -353,12 +379,11 @@ function level2() {
 		}
 
 	 }else{
-			gameOver = true;
-			ctx.font = "50px Arial";
-			ctx.fillStyle = "rgb(255,255,255)";
-			ctx.textAlign="center";
-			ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-			ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+		 gameOver2 = true;
+		 end = false;
+		 if (timer2 == 0) {
+			 lose.play();
+		 }
 	 }
 }
 
@@ -399,12 +424,11 @@ function level3() {
 		}
 
 	 }else{
-			gameOver = true;
-			ctx.font = "50px Arial";
-			ctx.fillStyle = "rgb(255,255,255)";
-			ctx.textAlign="center";
-			ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-			ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+		 gameOver3 = true;
+		 end = false;
+		 if (timer3 == 0) {
+			 lose.play();
+		 }
 	 }
 }
 
@@ -445,15 +469,13 @@ function level4() {
 		}
 
 	 }else{
-			gameOver = true;
-			ctx.font = "50px Arial";
-			ctx.fillStyle = "rgb(255,255,255)";
-			ctx.textAlign="center";
-			ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-			ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+		 gameOver4 = true;
+		 end = false;
+		 if (timer4 == 0) {
+			 lose.play();
+		 }
 	 }
 }
-
 
 function level5() {
 	if(timer5>0){
@@ -490,12 +512,11 @@ function level5() {
 
 
 		 }else{
-				gameOver = true;
-				ctx.font = "50px Arial";
-				ctx.fillStyle = "rgb(255,255,255)";
-				ctx.textAlign="center";
-				ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-				ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+			 gameOver5 = true;
+			 end = false;
+			 if (timer5 == 0) {
+				 lose.play();
+			 }
 		 }
 
 
@@ -536,12 +557,12 @@ function level6() {
 
 
 		 }else{
-				gameOver = true;
-				ctx.font = "50px Arial";
-				ctx.fillStyle = "rgb(255,255,255)";
-				ctx.textAlign="center";
-				ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-				ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+
+				gameOver6 = true;
+				end = false;
+				if (timer6 == 0) {
+					lose.play();
+				}
 		 }
 
 }
@@ -582,18 +603,14 @@ function level7() {
 
 
 		 }else{
-				gameOver = true;
-				ctx.font = "50px Arial";
-				ctx.fillStyle = "rgb(255,255,255)";
-				ctx.textAlign="center";
-				ctx.fillText("GAME OVER!",cv.width/2,cv.height/2-50);
-				ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
+				gameOver7 = true;
+				end = false;
+				if (timer7 == 0) {
+					lose.play();
+				}
 		 }
-
-
 }
-var gameOver8 = false;
-var end = false;
+
 function level8() {
 	if(timer8>0){
 		gameOver8 = false;
@@ -652,11 +669,16 @@ function level8() {
 			if (capture == 80){
 				gameOver8 = true;
 				end = true;
-
+				if (timer8 != 0) {
+					win.play();
+				}
 			}
 	 }else{
 		 gameOver8 = true;
 		 end = false;
+		 if (timer8 == 0) {
+			 lose.play();
+		 }
 	 }
 
 }
@@ -664,6 +686,7 @@ function level8() {
 
 function gameEnds(){
 	if(end){
+		bgm1.pause();
 		ctx.font = "50px Arial";
 		ctx.fillStyle = "rgb(255,255,255)";
 		ctx.textAlign="center";
@@ -671,6 +694,7 @@ function gameEnds(){
 		ctx.fillText("Refersh to Restart",cv.width/2,cv.height/2+25);
 
 	}else{
+		bgm1.pause();
 		ctx.font = "50px Arial";
 		ctx.fillStyle = "rgb(255,255,255)";
 		ctx.textAlign="center";
